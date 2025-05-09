@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Typography, Select } from 'antd';
+import { Typography, Select, Table } from 'antd';
 import './App.css';
 
-const { Title, Text } = Typography;
+const { Title } = Typography;
 
 function App() {
 
@@ -30,27 +30,22 @@ function App() {
       scale[index] += '°';
     });
 
-    const scaleWithGrades = scale.map((chord, index) => {
-      if (grades.includes(index + 1)) {
-        return chord;
-      }
-      return '';
-    });
+    const scaleWithGrades = grades.map(grade => scale[grade - 1] || '');
 
     setField(scaleWithGrades);
   };
 
-  useEffect(() => { 
+  useEffect(() => {
     getHarmonicField(note);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => { 
+  useEffect(() => {
     getHarmonicField(note);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [note, grades ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [note, grades]);
 
-  
+
 
   return (
     <div className="App" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -89,10 +84,29 @@ function App() {
           { value: 7, label: '7' },
         ]}
       />
-      <div style={{ marginTop: 190 }}>
-        {field.map((chord, index) => (
-          <Text key={index} style={{ display: 'block', textAlign: 'center', fontSize: 40 }}>{chord}</Text>
-        ))}
+      <div style={{ width: '50%', marginTop: 170 }}>
+        <Table
+          dataSource={grades.map((grade, index) => ({
+            key: index,
+            grade: grade,
+            chord: field[index] || '',
+          }))}
+          columns={[
+            {
+              title: 'Grade',
+              dataIndex: 'grade',
+              key: 'grade',
+              align: 'center',
+            },
+            {
+              title: 'Chord',
+              dataIndex: 'chord',
+              key: 'chord',
+              align: 'center',
+            },
+          ]}
+          pagination={false}
+        />
       </div>
     </div>
   );
