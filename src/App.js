@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Typography, Select, Button } from 'antd';
+import { useState, useEffect } from 'react';
+import { Typography, Select } from 'antd';
 import './App.css';
 
 const { Title, Text } = Typography;
@@ -10,11 +10,11 @@ function App() {
   const [field, setField] = useState([]);
   const [grades, setGrades] = useState([1, 5, 4]);
 
-  const getHarmonicField = () => {
+  const getHarmonicField = (noteValue) => {
     const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
     const majorScaleIntervals = [2, 2, 1, 2, 2, 2];
 
-    const startIndex = notes.indexOf(note);
+    const startIndex = notes.indexOf(noteValue);
     const scale = [notes[startIndex]];
 
     let currentIndex = startIndex;
@@ -40,9 +40,21 @@ function App() {
     setField(scaleWithGrades);
   };
 
+  useEffect(() => { 
+    getHarmonicField(note);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => { 
+    getHarmonicField(note);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [note, grades ]);
+
+  
+
   return (
     <div className="App" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <Title style={{ textAlign: 'center'}}>
+      <Title style={{ textAlign: 'center' }}>
         Thiaguera Music App
       </Title>
       <Select
@@ -63,6 +75,7 @@ function App() {
       <Select
         mode="multiple"
         placeholder="Select Grades"
+        value={grades}
         onChange={setGrades}
         defaultValue={[1, 5, 4]}
         style={{ width: 200, marginBottom: 10 }}
@@ -76,10 +89,7 @@ function App() {
           { value: 7, label: '7' },
         ]}
       />
-      <Button type="primary" onClick={getHarmonicField} style={{ marginBottom: 20 }}>
-        Get Harmonic Field
-      </Button>
-      <div>
+      <div style={{ marginTop: 190 }}>
         {field.map((chord, index) => (
           <Text key={index} style={{ display: 'block', textAlign: 'center', fontSize: 40 }}>{chord}</Text>
         ))}
