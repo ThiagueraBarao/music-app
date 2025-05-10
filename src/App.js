@@ -112,13 +112,13 @@ function App() {
             setGrades(progressions[value] || []);
           }}
           options={[
-            { value: '[1, 5, 6, 4]', label: 'MPB : [1, 5, 6, 4]' },
-            { value: '[1, 4, 6, 5]', label: 'MPB : [1, 4, 6, 5]' },
+            { value: '[1, 5, 6, 4]', label: 'MPB: [1, 5, 6, 4]' },
+            { value: '[1, 4, 6, 5]', label: 'MPB: [1, 4, 6, 5]' },
             { value: '[6, 4, 1, 5]', label: 'Emo: [6, 4, 1, 5]' },
             { value: '[1, 4, 5]', label: 'Sertanejo: [1, 4, 5]' },
-            { value: '[1, 6, 4, 5]', label: 'Sertanejo [1, 6, 4, 5]' },
-            { value: '[1, 6, 2, 5]', label: 'Samba [1, 6, 2, 5]' },
-            { value: '[1, 5, 6, 4]', label: 'Samba [1, 5, 6, 4]' },
+            { value: '[1, 6, 4, 5]', label: 'Sertanejo: [1, 6, 4, 5]' },
+            { value: '[1, 6, 2, 5]', label: 'Samba: [1, 6, 2, 5]' },
+            { value: '[1, 5, 6, 4]', label: 'Samba: [1, 5, 6, 4]' },
           ]}
         />
       </div>
