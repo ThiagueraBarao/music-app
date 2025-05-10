@@ -11,6 +11,7 @@ function App() {
   const [note, setNote] = useState('C');
   const [field, setField] = useState([]);
   const [grades, setGrades] = useState([1, 5, 4]);
+  const [commonProgression, setCommonProgression] = useState(null);
 
   const getHarmonicField = (noteValue) => {
     setField(harmonicField(noteValue, grades))
@@ -34,7 +35,7 @@ function App() {
         <TikTokOutlined /> Thiaguera Music App
       </Title>
 
-      <div style={{ width: 300, marginBottom: 20 }}>
+      <div style={{ width: 500, marginBottom: 20 }}>
         <Typography.Text strong>Select Note</Typography.Text>
         <Slider
           min={0}
@@ -51,22 +52,41 @@ function App() {
           step={null}
           value={['C', 'D', 'E', 'F', 'G', 'A', 'B'].indexOf(note)}
           onChange={(value) => setNote(['C', 'D', 'E', 'F', 'G', 'A', 'B'][value])}
+          tooltip={{
+            formatter: (value) => ['C', 'D', 'E', 'F', 'G', 'A', 'B'][value],
+          }}
         />
       </div>
 
-      <div style={{ width: 300, marginBottom: 20 }}>
+      <div style={{ width: 500, marginBottom: 20, display: 'flex', alignItems: 'center', gap: 10 }}>
         <Typography.Text strong>Select Grades</Typography.Text>
         <Select
           mode="multiple"
           placeholder="Select Grades"
           value={grades}
           onChange={setGrades}
-          style={{ width: '100%' }}
+          style={{ flex: 1 }}
           options={Array.from({ length: 7 }, (_, i) => ({
             value: i + 1,
             label: `${i + 1}`,
           }))}
         />
+        <button
+          onClick={() => {
+            setGrades([])
+            setCommonProgression(null);
+          }}
+          style={{
+            padding: '4px 8px',
+            backgroundColor: '#f5222d',
+            color: 'white',
+            border: 'none',
+            borderRadius: 4,
+            cursor: 'pointer',
+          }}
+        >
+          Reset
+        </button>
       </div>
 
       <div style={{ width: '100%', maxWidth: 600, marginTop: 20 }}>
@@ -100,8 +120,11 @@ function App() {
         <Select
           placeholder="Select a progression"
           style={{ width: '100%' }}
+          value={commonProgression}
           onChange={(value) => {
+            setCommonProgression(value);
             const progressions = {
+              '[1, 2, 3, 4, 5, 6, 7]': [1, 2, 3, 4, 5, 6, 7],
               '[1, 5, 6, 4]': [1, 5, 6, 4],
               '[1, 4, 6, 5]': [1, 4, 6, 5],
               '[6, 4, 1, 5]': [6, 4, 1, 5],
@@ -112,6 +135,7 @@ function App() {
             setGrades(progressions[value] || []);
           }}
           options={[
+            { value: '[1, 2, 3, 4, 5, 6, 7]', label: 'Harmonico Maior: [1, 2, 3, 4, 5, 6, 7]' },
             { value: '[1, 5, 6, 4]', label: 'MPB: [1, 5, 6, 4]' },
             { value: '[1, 4, 6, 5]', label: 'MPB: [1, 4, 6, 5]' },
             { value: '[6, 4, 1, 5]', label: 'Emo: [6, 4, 1, 5]' },
@@ -123,7 +147,7 @@ function App() {
         />
       </div>
 
-      <Typography.Paragraph style={{ textAlign: 'justify', marginTop: 30 ,marginBottom: 30, maxWidth: 600 }}>
+      <Typography.Paragraph style={{ textAlign: 'justify', marginTop: 30, marginBottom: 30, maxWidth: 600 }}>
         This app helps musicians identify chord progressions in different keys. Select a root note and choose which scale
         degrees (grades) you want to include in your progression. The app will show you the corresponding chords based on
         the harmonic field of the selected key, including major, minor, and diminished chords.
