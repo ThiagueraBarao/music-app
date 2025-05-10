@@ -1,31 +1,13 @@
-# Create React App
+# Thiaguera Music App
 
-This directory is a brief example of a [Create React App](https://github.com/facebook/create-react-app) site that can be deployed to Vercel with zero configuration.
+[Access App in Prod](https://music-app-flame-five.vercel.app/)
 
-## Deploy Your Own
+Thiaguera Music App is a powerful tool designed for musicians and music enthusiasts to explore and create chord progressions in various keys. With an intuitive interface, you can:
 
-Deploy your own Create React App project with Vercel.
+- Select a root note to define your key.
+- Choose specific scale degrees to include in your progression.
+- Instantly view the corresponding chords, including major, minor, and diminished variations, based on the harmonic field of the selected key.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/examples/tree/main/framework-boilerplates/create-react-app&template=create-react-app)
+Whether you're composing, practicing, or learning music theory, this app simplifies the process of understanding and building chord progressions.
 
-_Live Example: https://create-react-template.vercel.app/_
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode. Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes. You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode. See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.
-
-It correctly bundles React in production mode and optimizes the build for the best performance. The build is minified and the filenames include the hashes.
+![app-overview](app-overview.png)
