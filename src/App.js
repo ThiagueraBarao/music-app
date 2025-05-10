@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Typography, Select, Slider, Table } from 'antd';
+import { Typography, Select, Slider, Table, Button } from 'antd';
 import './App.css';
 import { TikTokOutlined, TrademarkOutlined } from '@ant-design/icons';
 import harmonicField from './functions/functions';
@@ -71,7 +71,7 @@ function App() {
             label: `${i + 1}`,
           }))}
         />
-        <button
+        <Button
           onClick={() => {
             setGrades([])
             setCommonProgression(null);
@@ -86,7 +86,7 @@ function App() {
           }}
         >
           Reset
-        </button>
+        </Button>
       </div>
 
       <div style={{ width: '100%', maxWidth: 600, marginTop: 20 }}>
