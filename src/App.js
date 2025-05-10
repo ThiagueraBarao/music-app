@@ -7,8 +7,6 @@ import { NOTES, PROGRESSION_OPTIONS, PROGRESSIONS } from './constants';
 
 const { Title } = Typography;
 
-
-
 function App() {
   const [note, setNote] = useState('C');
   const [field, setField] = useState([]);
@@ -36,13 +34,13 @@ function App() {
   };
 
   return (
-    <div className="App" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: 20 }}>
-      <Title level={2} style={{ textAlign: 'center', marginBottom: 20 }}>
+    <div className="App" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '2vw' }}>
+      <Title level={2} style={{ textAlign: 'center', marginBottom: '2vw' }}>
         <TikTokOutlined /> Thiaguera Music App
       </Title>
 
       <Typography.Text strong>Select Note</Typography.Text>
-      <div style={{ width: 500, marginBottom: 20, display: 'flex', alignItems: 'center', gap: 10 }}>
+      <div style={{ width: '90%', maxWidth: '600px', marginBottom: '2vw', display: 'flex', alignItems: 'center', gap: '1vw' }}>
         <Button onClick={() => handleNoteChange(-1)}>
           <DownOutlined />
         </Button>
@@ -63,7 +61,7 @@ function App() {
         </Button>
       </div>
 
-      <div style={{ width: 500, marginBottom: 20, display: 'flex', alignItems: 'center', gap: 10 }}>
+      <div style={{ width: '90%', maxWidth: '600px', marginBottom: '2vw', display: 'flex', alignItems: 'center', gap: '1vw' }}>
         <Typography.Text strong>Select Grades</Typography.Text>
         <Select
           mode="multiple"
@@ -83,11 +81,11 @@ function App() {
             setCommonProgression(null);
           }}
           style={{
-            padding: '4px 8px',
+            padding: '0.5vw 1vw',
             backgroundColor: '#f5222d',
             color: 'white',
             border: 'none',
-            borderRadius: 4,
+            borderRadius: '0.5vw',
             cursor: 'pointer',
           }}
         >
@@ -95,7 +93,7 @@ function App() {
         </Button>
       </div>
 
-      <div style={{ width: '100%', maxWidth: 600, marginTop: 20 }}>
+      <div style={{ width: '100%', maxWidth: '90%', marginTop: '2vw' }}>
         <Table
           dataSource={grades.map((grade, index) => ({
             key: index,
@@ -121,7 +119,7 @@ function App() {
         />
       </div>
 
-      <div style={{ width: 300, marginTop: 30, marginBottom: 20 }}>
+      <div style={{ width: '90%', maxWidth: '400px', marginTop: '3vw', marginBottom: '2vw' }}>
         <Typography.Text strong>Common Progressions</Typography.Text>
         <Select
           placeholder="Select a progression"
@@ -136,13 +134,13 @@ function App() {
         />
       </div>
 
-      <Typography.Paragraph style={{ textAlign: 'justify', marginTop: 30, marginBottom: 30, maxWidth: 600 }}>
+      <Typography.Paragraph style={{ textAlign: 'justify', marginTop: '3vw', marginBottom: '3vw', maxWidth: '90%' }}>
         This app helps musicians identify chord progressions in different keys. Select a root note and choose which scale
         degrees (grades) you want to include in your progression. The app will show you the corresponding chords based on
         the harmonic field of the selected key, including major, minor, and diminished chords.
       </Typography.Paragraph>
 
-      <div style={{ marginTop: 20, textAlign: 'center' }}>
+      <div style={{ marginTop: '2vw', marginBottom: '5vw', textAlign: 'center' }}>
         <a
           href="https://www.thiagocarmonunes.com.br"
           target="_blank"
