@@ -1,20 +1,22 @@
 import { useState, useEffect } from 'react';
 import { Typography, Select, Slider, Table, Button } from 'antd';
 import './App.css';
-import { TikTokOutlined, TrademarkOutlined } from '@ant-design/icons';
+import { TikTokOutlined, TrademarkOutlined, UpOutlined, DownOutlined } from '@ant-design/icons';
 import harmonicField from './functions/functions';
+import { NOTES, PROGRESSION_OPTIONS, PROGRESSIONS } from './constants';
 
 const { Title } = Typography;
 
-function App() {
 
+
+function App() {
   const [note, setNote] = useState('C');
   const [field, setField] = useState([]);
   const [grades, setGrades] = useState([1, 5, 4]);
   const [commonProgression, setCommonProgression] = useState(null);
 
   const getHarmonicField = (noteValue) => {
-    setField(harmonicField(noteValue, grades))
+    setField(harmonicField(noteValue, grades));
   };
 
   useEffect(() => {
@@ -27,7 +29,11 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [note, grades]);
 
-
+  const handleNoteChange = (direction) => {
+    const currentIndex = NOTES.indexOf(note);
+    const newIndex = (currentIndex + direction + NOTES.length) % NOTES.length;
+    setNote(NOTES[newIndex]);
+  };
 
   return (
     <div className="App" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: 20 }}>
@@ -35,27 +41,26 @@ function App() {
         <TikTokOutlined /> Thiaguera Music App
       </Title>
 
-      <div style={{ width: 500, marginBottom: 20 }}>
-        <Typography.Text strong>Select Note</Typography.Text>
+      <Typography.Text strong>Select Note</Typography.Text>
+      <div style={{ width: 500, marginBottom: 20, display: 'flex', alignItems: 'center', gap: 10 }}>
+        <Button onClick={() => handleNoteChange(-1)}>
+          <DownOutlined />
+        </Button>
         <Slider
           min={0}
-          max={6}
-          marks={{
-            0: 'C',
-            1: 'D',
-            2: 'E',
-            3: 'F',
-            4: 'G',
-            5: 'A',
-            6: 'B',
-          }}
+          max={NOTES.length - 1}
+          marks={NOTES.reduce((acc, note, index) => ({ ...acc, [index]: note }), {})}
           step={null}
-          value={['C', 'D', 'E', 'F', 'G', 'A', 'B'].indexOf(note)}
-          onChange={(value) => setNote(['C', 'D', 'E', 'F', 'G', 'A', 'B'][value])}
+          value={NOTES.indexOf(note)}
+          onChange={(value) => setNote(NOTES[value])}
           tooltip={{
-            formatter: (value) => ['C', 'D', 'E', 'F', 'G', 'A', 'B'][value],
+            formatter: (value) => NOTES[value],
           }}
+          style={{ flex: 1 }}
         />
+        <Button onClick={() => handleNoteChange(1)}>
+          <UpOutlined />
+        </Button>
       </div>
 
       <div style={{ width: 500, marginBottom: 20, display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -63,6 +68,7 @@ function App() {
         <Select
           mode="multiple"
           placeholder="Select Grades"
+          data-testid="grades-dropdown"
           value={grades}
           onChange={setGrades}
           style={{ flex: 1 }}
@@ -73,7 +79,7 @@ function App() {
         />
         <Button
           onClick={() => {
-            setGrades([])
+            setGrades([]);
             setCommonProgression(null);
           }}
           style={{
@@ -119,31 +125,14 @@ function App() {
         <Typography.Text strong>Common Progressions</Typography.Text>
         <Select
           placeholder="Select a progression"
+          data-testid="progression-dropdown"
           style={{ width: '100%' }}
           value={commonProgression}
           onChange={(value) => {
             setCommonProgression(value);
-            const progressions = {
-              '[1, 2, 3, 4, 5, 6, 7]': [1, 2, 3, 4, 5, 6, 7],
-              '[1, 5, 6, 4]': [1, 5, 6, 4],
-              '[1, 4, 6, 5]': [1, 4, 6, 5],
-              '[6, 4, 1, 5]': [6, 4, 1, 5],
-              '[1, 4, 5]': [1, 4, 5],
-              '[1, 6, 4, 5]': [1, 6, 4, 5],
-              '[1, 6, 2, 5]': [1, 6, 2, 5],
-            };
-            setGrades(progressions[value] || []);
+            setGrades(PROGRESSIONS[value] || []);
           }}
-          options={[
-            { value: '[1, 2, 3, 4, 5, 6, 7]', label: 'Harmonico Maior: [1, 2, 3, 4, 5, 6, 7]' },
-            { value: '[1, 5, 6, 4]', label: 'MPB: [1, 5, 6, 4]' },
-            { value: '[1, 4, 6, 5]', label: 'MPB: [1, 4, 6, 5]' },
-            { value: '[6, 4, 1, 5]', label: 'Emo: [6, 4, 1, 5]' },
-            { value: '[1, 4, 5]', label: 'Sertanejo: [1, 4, 5]' },
-            { value: '[1, 6, 4, 5]', label: 'Sertanejo: [1, 6, 4, 5]' },
-            { value: '[1, 6, 2, 5]', label: 'Samba: [1, 6, 2, 5]' },
-            { value: '[1, 5, 6, 4]', label: 'Samba: [1, 5, 6, 4]' },
-          ]}
+          options={PROGRESSION_OPTIONS}
         />
       </div>
 

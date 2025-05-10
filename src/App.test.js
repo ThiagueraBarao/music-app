@@ -30,5 +30,25 @@ describe('App Component', () => {
     const gradesLabel = screen.getByText(/Select Grades/i);
     expect(gradesLabel).toBeInTheDocument();
   });
-});
 
+  test('renders the Select Note slider with correct default value', () => {
+    render(<App />);
+    const slider = screen.getByRole('slider');
+    expect(slider).toHaveAttribute('aria-valuenow', '0'); // Default value corresponds to 'C'
+  });
+
+  test('updates the note when the slider is changed', () => {
+    render(<App />);
+    const slider = screen.getByRole('slider');
+    slider.focus();
+    slider.setAttribute('aria-valuenow', '3'); // Simulate changing to 'F'
+    expect(slider).toHaveAttribute('aria-valuenow', '3');
+  });
+
+  test('renders the table with correct initial data', () => {
+    render(<App />);
+    const tableRows = screen.getAllByRole('row');
+    expect(tableRows).toHaveLength(4); // Header row + 3 grades
+  });
+
+});
