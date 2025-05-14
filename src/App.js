@@ -36,6 +36,11 @@ function App() {
     setNote(NOTES[newIndex]);
   };
 
+  useEffect(() => {
+    restartTrainingMode();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [intervalSeconds]);
+
   const randomizeNote = () => {
     let randomIndex;
     do {
@@ -51,6 +56,13 @@ function App() {
       randomizeNote();
     }, intervalSeconds * 1000);
     setIsTraining(true);
+  };
+
+  const restartTrainingMode = () => {
+    if (isTraining) {
+      stopTrainingMode();
+      startTrainingMode();
+    }
   };
 
   const stopTrainingMode = () => {
