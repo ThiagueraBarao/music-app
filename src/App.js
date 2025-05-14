@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import { Typography, Select, Slider, Table, Button } from 'antd';
+import { useState, useEffect, useRef } from 'react';
+import { Typography, Select, Slider, Table, Button, Space, InputNumber, Checkbox, Tag } from 'antd';
 import './App.css';
-import { TikTokOutlined, TrademarkOutlined, UpOutlined, DownOutlined } from '@ant-design/icons';
+import { TikTokOutlined, TrademarkOutlined, UpOutlined, DownOutlined, SyncOutlined } from '@ant-design/icons';
 import harmonicField from './functions/functions';
 import { NOTES, PROGRESSION_OPTIONS, PROGRESSIONS } from './constants';
 
@@ -12,6 +12,9 @@ function App() {
   const [field, setField] = useState([]);
   const [grades, setGrades] = useState([1, 5, 4]);
   const [commonProgression, setCommonProgression] = useState(null);
+  const [intervalSeconds, setIntervalSeconds] = useState(4);
+  const [isTraining, setIsTraining] = useState(false);
+  const intervalRef = useRef(null);
 
   const getHarmonicField = (noteValue) => {
     setField(harmonicField(noteValue, grades));
@@ -33,6 +36,37 @@ function App() {
     setNote(NOTES[newIndex]);
   };
 
+  const randomizeNote = () => {
+    let randomIndex;
+    do {
+      randomIndex = Math.floor(Math.random() * NOTES.length);
+    } while (NOTES[randomIndex] === note);
+    setNote(NOTES[randomIndex]);
+  };
+
+
+  const startTrainingMode = () => {
+    clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(() => {
+      randomizeNote();
+    }, intervalSeconds * 1000);
+    setIsTraining(true);
+  };
+
+  const stopTrainingMode = () => {
+    console.log("PAROU");
+    clearInterval(intervalRef.current);
+    setIsTraining(false);
+  };
+
+  const toggleTrainingMode = () => {
+    if (isTraining) {
+      stopTrainingMode();
+    } else {
+      startTrainingMode();
+    }
+  };
+
   return (
     <div className="App" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '2vw' }}>
       <Title level={2} style={{ textAlign: 'center', marginBottom: '2vw' }}>
@@ -40,7 +74,7 @@ function App() {
       </Title>
 
       <Typography.Text strong>Select Note</Typography.Text>
-      <div style={{ width: '90%', maxWidth: '600px', marginBottom: '2vw', display: 'flex', alignItems: 'center', gap: '1vw' }}>
+      <div style={{ width: '100%', maxWidth: '600px', marginBottom: '2vw', display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '1vw' }}>
         <Button onClick={() => handleNoteChange(-1)}>
           <DownOutlined />
         </Button>
@@ -54,14 +88,14 @@ function App() {
           tooltip={{
             formatter: (value) => NOTES[value],
           }}
-          style={{ flex: 1 }}
+          style={{ flex: 1, minWidth: '150px' }}
         />
         <Button onClick={() => handleNoteChange(1)}>
           <UpOutlined />
         </Button>
       </div>
 
-      <div style={{ width: '90%', maxWidth: '600px', marginBottom: '2vw', display: 'flex', alignItems: 'center', gap: '1vw' }}>
+      <div style={{ width: '100%', maxWidth: '600px', marginBottom: '2vw', display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '1vw' }}>
         <Typography.Text strong>Select Grades</Typography.Text>
         <Select
           mode="multiple"
@@ -69,7 +103,7 @@ function App() {
           data-testid="grades-dropdown"
           value={grades}
           onChange={setGrades}
-          style={{ flex: 1 }}
+          style={{ flex: 1, minWidth: '150px' }}
           options={Array.from({ length: 7 }, (_, i) => ({
             value: i + 1,
             label: `${i + 1}`,
@@ -84,8 +118,6 @@ function App() {
             padding: '0.5vw 1vw',
             backgroundColor: '#f5222d',
             color: 'white',
-            border: 'none',
-            borderRadius: '0.5vw',
             cursor: 'pointer',
           }}
         >
@@ -93,7 +125,7 @@ function App() {
         </Button>
       </div>
 
-      <div style={{ width: '100%', maxWidth: '90%', marginTop: '2vw' }}>
+      <div style={{ width: '100%', overflowX: 'auto', marginTop: '2vw' }}>
         <Table
           dataSource={grades.map((grade, index) => ({
             key: index,
@@ -119,7 +151,7 @@ function App() {
         />
       </div>
 
-      <div style={{ width: '90%', maxWidth: '400px', marginTop: '3vw', marginBottom: '2vw' }}>
+      <div style={{ width: '100%', maxWidth: '400px', marginTop: '3vw' }}>
         <Typography.Text strong>Common Progressions</Typography.Text>
         <Select
           placeholder="Select a progression"
@@ -133,6 +165,45 @@ function App() {
           options={PROGRESSION_OPTIONS}
         />
       </div>
+
+      <div style={{ width: '100%', marginTop: '3vw', textAlign: 'center' }}>
+        <Typography.Text strong>Training Mode</Typography.Text>
+        <br />
+        {isTraining && (
+          <>
+            <Tag style={{ fontSize: '1em', padding: '0.5em 1em' }} strong>
+              Current Note : {note}
+            </Tag>
+            <br />
+          </>
+        )}
+        <Space style={{ marginTop: '1vw', flexWrap: 'wrap', marginBottom: '1vw', justifyContent: 'center' }}>
+          <Button
+            type="primary"
+            onClick={toggleTrainingMode}
+            style={{ backgroundColor: isTraining ? '#f5222d' : '#1890ff', borderColor: isTraining ? '#f5222d' : '#1890ff' }}
+          >
+            {isTraining ? <><SyncOutlined spin /> Stop Training</> : 'Start Training'}
+          </Button>
+          <Checkbox
+            onChange={(e) => setField(e.target.checked ? [] : harmonicField(note, grades))}
+            style={{ minWidth: '50px' }}
+          >
+            <Typography.Text>Hide Notes</Typography.Text>
+          </Checkbox>
+          <InputNumber
+            min={1}
+            addonAfter={'seconds'}
+            value={intervalSeconds}
+            step={1}
+            onChange={setIntervalSeconds}
+            placeholder="Seconds"
+          />
+        </Space>
+      </div>
+      <Button onClick={() => randomizeNote()} style={{ marginTop: '1vw' }}>
+        Random Note
+      </Button>
 
       <Typography.Paragraph style={{ textAlign: 'justify', marginTop: '3vw', marginBottom: '3vw', maxWidth: '90%' }}>
         This app helps musicians identify chord progressions in different keys. Select a root note and choose which scale
