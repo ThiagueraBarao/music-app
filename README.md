@@ -10,4 +10,4 @@ Thiaguera Music App is a powerful tool designed for musicians and music enthusia
 
 Whether you're composing, practicing, or learning music theory, this app simplifies the process of understanding and building chord progressions.
 
-![app-overview](app-overview.png)
+![app-preview](https://github.com/user-attachments/assets/4cf8964f-6df5-49e5-8324-ce6ba7b61407)
