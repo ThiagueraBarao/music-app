@@ -1,4 +1,4 @@
-import harmonicField from './functions';
+import harmonicField from './harmonicField';
 
 describe('harmonicField', () => {
 

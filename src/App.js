@@ -54,7 +54,6 @@ function App() {
   };
 
   const stopTrainingMode = () => {
-    console.log("PAROU");
     clearInterval(intervalRef.current);
     setIsTraining(false);
   };
