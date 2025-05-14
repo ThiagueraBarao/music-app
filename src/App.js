@@ -12,7 +12,7 @@ function App() {
   const [field, setField] = useState([]);
   const [grades, setGrades] = useState([1, 5, 4]);
   const [commonProgression, setCommonProgression] = useState(null);
-  const [intervalSeconds, setIntervalSeconds] = useState(4);
+  const [intervalSeconds, setIntervalSeconds] = useState(11);
   const [isTraining, setIsTraining] = useState(false);
   const intervalRef = useRef(null);
 
@@ -205,7 +205,9 @@ function App() {
             <Typography.Text>Hide Notes</Typography.Text>
           </Checkbox>
           <InputNumber
+            style={{ maxWidth: '200px' }}
             min={1}
+            addonBefore={'Interval'}
             addonAfter={'seconds'}
             value={intervalSeconds}
             step={1}
