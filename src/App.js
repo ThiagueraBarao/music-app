@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Typography, Select, Slider, Table, Button, Space, InputNumber, Checkbox, Tag } from 'antd';
 import './App.css';
 import { TikTokOutlined, TrademarkOutlined, UpOutlined, DownOutlined, SyncOutlined } from '@ant-design/icons';
-import harmonicField from './functions/functions';
+import harmonicField from './functions/harmonicField';
 import { NOTES, PROGRESSION_OPTIONS, PROGRESSIONS } from './constants';
 
 const { Title } = Typography;
