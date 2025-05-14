@@ -171,8 +171,10 @@ function App() {
         <br />
         {isTraining && (
           <>
+            Current Note:
+            {' '}
             <Tag style={{ fontSize: '1em', padding: '0.5em 1em' }} strong>
-              Current Note : {note}
+              <b>{note}</b>
             </Tag>
             <br />
           </>
