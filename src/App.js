@@ -3,9 +3,10 @@ import { Typography, Select, Slider, Table, Button, Space, InputNumber, Checkbox
 import './App.css';
 import { TikTokOutlined, TrademarkOutlined, UpOutlined, DownOutlined, SyncOutlined } from '@ant-design/icons';
 import harmonicField from './functions/harmonicField';
+import Metronome from './functions/Metronome';
 import { NOTES, PROGRESSION_OPTIONS, PROGRESSIONS } from './constants';
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
 function App() {
   const [note, setNote] = useState('C');
@@ -216,10 +217,14 @@ function App() {
           />
         </Space>
       </div>
-      <Button onClick={() => randomizeNote()} style={{ marginTop: '1vw' }}>
-        Random Note
-      </Button>
-
+      <>
+        <Text strong>Randomize Note</Text>
+        <Button onClick={() => randomizeNote()} style={{ marginTop: '1vw', marginBottom: '1vw' }}>
+          Random Note
+        </Button>
+        <Text strong>Metronome</Text>
+        <Metronome />
+      </>
       <Typography.Paragraph style={{ textAlign: 'justify', marginTop: '3vw', marginBottom: '3vw', maxWidth: '90%' }}>
         This app helps musicians identify chord progressions in different keys. Select a root note and choose which scale
         degrees (grades) you want to include in your progression. The app will show you the corresponding chords based on
