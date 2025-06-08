@@ -22,6 +22,7 @@ const harmonicField = (noteValue, grades) => {
     if ([7].includes(grade)) suffix += '°';
     if (typeof grades[index] === 'string' && grades[index].includes('vii')) suffix += '7';
     if (typeof grades[index] === 'string' && grades[index].includes('(-m)')) suffix = suffix.replace('m', '');
+    if (typeof grades[index] === 'string' && grades[index].includes('(m)')) suffix += 'm';
     scale[grade - 1] += suffix;
   });
 
