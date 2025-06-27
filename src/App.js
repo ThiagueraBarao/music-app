@@ -21,6 +21,11 @@ function App() {
     setField(harmonicField(noteValue, grades));
   };
 
+  const currentExample = () => {
+    const progression = PROGRESSIONS[commonProgression];
+    return progression ? PROGRESSION_OPTIONS.find(option => option.value === commonProgression)?.examples || [] : [];
+  };
+
   useEffect(() => {
     getHarmonicField(note);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -176,6 +181,13 @@ function App() {
           }}
           options={PROGRESSION_OPTIONS}
         />
+        <Typography.Paragraph style={{ marginTop: '1vw', textAlign: 'center' }}>
+          <ul style={{ listStyleType: 'none', padding: 0 }}>
+            {currentExample().length > 0 ? currentExample().map((example, index) => (
+              <li key={index}>{example}</li>
+            )) : <p>Select a progression to see examples.</p>}
+          </ul>
+        </Typography.Paragraph>
       </div>
 
       <div style={{ width: '100%', marginTop: '3vw', textAlign: 'center' }}>
