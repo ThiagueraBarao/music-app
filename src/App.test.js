@@ -33,13 +33,15 @@ describe('App Component', () => {
 
   test('renders the Select Note slider with correct default value', () => {
     render(<App />);
-    const slider = screen.getByRole('slider');
+    const sliders = screen.getAllByRole('slider');
+    const slider = sliders.find((el) => el.getAttribute('aria-valuemin') === '0' && el.getAttribute('aria-valuemax') === '6');
     expect(slider).toHaveAttribute('aria-valuenow', '0'); // Default value corresponds to 'C'
   });
 
   test('updates the note when the slider is changed', () => {
     render(<App />);
-    const slider = screen.getByRole('slider');
+    const sliders = screen.getAllByRole('slider');
+    const slider = sliders.find((el) => el.getAttribute('aria-valuemin') === '0' && el.getAttribute('aria-valuemax') === '6');
     slider.focus();
     slider.setAttribute('aria-valuenow', '3'); // Simulate changing to 'F'
     expect(slider).toHaveAttribute('aria-valuenow', '3');

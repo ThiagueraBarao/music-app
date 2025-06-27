@@ -28,9 +28,11 @@ const harmonicField = (noteValue, grades) => {
   const formatedScaleWithGrades = grades.map((grade, index) => {
     let formattedGrade = scaleWithGrades[index];
     const gradeStr = String(grade);
+    if (gradeStr.includes('(b)')) {formattedGrade = formattedGrade.slice(0, 1) + 'b' + formattedGrade.slice(1);};
+    if (gradeStr.includes('(m)')) {formattedGrade = formattedGrade.slice(0, 1) + 'm' + formattedGrade.slice(1);};
     if (gradeStr.includes('vii')) formattedGrade += '7';
     if (gradeStr.includes('(-m)')) formattedGrade = formattedGrade.replace('m', '');
-    if (gradeStr.includes('(m)')) formattedGrade += 'm';
+    if (gradeStr.includes('(-°)')) formattedGrade = formattedGrade.replace('°', '');
     return formattedGrade;
   });
 
