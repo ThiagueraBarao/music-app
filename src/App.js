@@ -4,7 +4,7 @@ import './App.css';
 import { TikTokOutlined, TrademarkOutlined, UpOutlined, DownOutlined, SyncOutlined } from '@ant-design/icons';
 import harmonicField from './functions/harmonicField';
 import Metronome from './functions/Metronome';
-import { NOTES, PROGRESSION_OPTIONS, PROGRESSIONS } from './constants';
+import { NOTES, PROGRESSION_OPTIONS, PROGRESSIONS } from './constants/constants';
 
 const { Title, Text } = Typography;
 
