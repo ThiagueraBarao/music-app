@@ -8,7 +8,7 @@ const PROGRESSIONS_DATA = [
       'Uso em improvisação modal (ex: jazz modal/modal interchange)',
       'Referências acadêmicas e composições clássicas : sem música pop específica',
       'Jon Hassell : improvisações modais',
-      'Miles Davis : “So What” (escala dórica)',
+      'Miles Davis : “So What” (escala dorica)',
       'Herbie Hancock : “Maiden Voyage” (modal)',
       'John Coltrane : “Impressions” (modal)',
       'Keith Jarrett : performances solo ao vivo',
